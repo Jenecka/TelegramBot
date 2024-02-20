@@ -1,17 +1,20 @@
 import asyncio
-from aiogram import Bot, Dispatcher, types
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
+from aiogram import Bot, Dispatcher
+from aiogram.types import ReplyKeyboardMarkup
+from aiogram.dispatcher import Command
 
 bot = Bot(token="6828137414:AAGrFOHrYPeeIZ48oqOiE-xNdNxJVdS9sKY")
 dispatcher = Dispatcher(bot=bot)
 
-button1 = KeyboardButton(text="Оформить курсовую работу")
-button2 = KeyboardButton(text="Оформить список литературы")
-keyboard = ReplyKeyboardMarkup(keyboard=[[button1], [button2]], resize_keyboard=True)
-
-@dispatcher.message_handler(commands=['start'])
+@dispatcher.message(Command('start'))
 async def start(message: types.Message):
-    await message.answer("UR started, check keyboard", reply_markup=keyboard)
+    await message.answer("UR started, check keyboard")
+    kb = [
+        [types.KeyboardButton(text="С пюрешкой")],
+        [types.KeyboardButton(text="Без пюрешки")]
+    ]
+    keyboard = types.ReplyKeyboardMarkup(keyboard=kb)
+    await message.answer("Как подавать котлеты?", reply_markup=keyboard)
 
 async def main():
     await dispatcher.start_polling()
