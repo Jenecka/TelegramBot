@@ -1,40 +1,19 @@
+import os
 import asyncio
-from aiogram import Bot, Dispatcher
-from aiogram.types import ReplyKeyboardMarkup
-from aiogram.dispatcher import Command
+from aiogram import Bot, Dispatcher, types
 
-bot = Bot(token="6828137414:AAGrFOHrYPeeIZ48oqOiE-xNdNxJVdS9sKY")
-dispatcher = Dispatcher(bot=bot)
+from dotenv import find_dotenv, load_dotenv
+load_dotenv(find_dotenv())
 
-@dispatcher.message(Command('start'))
-async def start(message: types.Message):
-    await message.answer("UR started, check keyboard")
-    kb = [
-        [types.KeyboardButton(text="С пюрешкой")],
-        [types.KeyboardButton(text="Без пюрешки")]
-    ]
-    keyboard = types.ReplyKeyboardMarkup(keyboard=kb)
-    await message.answer("Как подавать котлеты?", reply_markup=keyboard)
+from handlers.user_private import user_private_router
+#импортирован обьект класса роутер из файла user_private
+
+bot = Bot(token = os.getenv('TOKEN'))
+dp = Dispatcher()
+
+dp.include_router(user_private_router)
+
 
 async def main():
-    await dispatcher.start_polling()
-
+    await dp.start_polling(bot)
 asyncio.run(main())
-
-
-# import telebot
-# from telebot import types
-#
-# token = "6828137414:AAGrFOHrYPeeIZ48oqOiE-xNdNxJVdS9sKY"
-# bot = telebot.TeleBot(token)
-#
-# @bot.message_handler(commands=['start'])
-# def start_message(message):
-#     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-#     button1 = types.KeyboardButton("Оформить литературу")
-#     button2 = types.KeyboardButton("Проверить орфографию")
-#     markup.add(button1, button2)
-#     bot.send_message(message.from_user.id, "Salam", reply_markup=markup)
-# # @bot.message_handler(commands=['button'])
-# # def button_message(message):
-# bot.infinity_polling()
