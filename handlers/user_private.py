@@ -1,6 +1,7 @@
 from aiogram import F, types, Router
 from aiogram.filters import CommandStart, Command, or_f
 from keybords import kbd
+
 user_private_router = Router()
 
 @user_private_router.message(CommandStart())
@@ -21,10 +22,6 @@ async def button_v_nachalo(message: types.message):
     await message.answer("Вы выбрали кнопку \"В начало\"",
                          reply_markup=kbd.start_kb)
 
-
-
-
-
-@user_private_router.message()
-async def cmd(message: types.Message):
-    await message.answer('Пожалуйста, выберите корректный пункт меню.')
+# @user_private_router.message()
+# async def cmd(message: types.Message):
+#     await message.answer('Пожалуйста, выберите корректный пункт меню.')

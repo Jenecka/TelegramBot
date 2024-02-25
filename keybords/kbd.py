@@ -8,6 +8,9 @@ start_kb = ReplyKeyboardMarkup(
         [
             KeyboardButton(text='Оформить курсовую работу')
         ],
+        [
+            KeyboardButton(text='Оформить титульный лист')
+        ],
     ],
     resize_keyboard=True,
     input_field_placeholder="Что вам нужно?"
@@ -19,6 +22,15 @@ end_kb = ReplyKeyboardMarkup(
     keyboard= [
         [
             KeyboardButton(text='В начало')
+        ],
+    ],
+    resize_keyboard=True
+)
+
+tit_list_kb = ReplyKeyboardMarkup(
+    keyboard= [
+        [
+            KeyboardButton(text='Получить файл')
         ],
     ],
     resize_keyboard=True
